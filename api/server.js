@@ -9,7 +9,7 @@ server.use(cors());
 server.use('/api', usersRouter);
 
 server.get('/', (req, res) => {
-    res.send(`<h1> Hello user </h1>`)
+    res.send(`<h1> Hello user! Welcome to my deployed Heroku app! </h1>`)
 });
 
 server.use('*', (req, res) => {
