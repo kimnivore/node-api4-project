@@ -20,7 +20,7 @@ router.get('/users', (req, res, next) => {
 });
 
 router.post('/register', (req, res, next) => {
-    let body = req.body
+    const body = req.body
     if(!body.username || !body.password) {
         res.status(500).json({ message: 'username and password are required' });
     } else {
@@ -43,25 +43,6 @@ router.post('/login', (req, res) => {
         res.status(400).json({ message: 'Incorrect username/password' });
     }
 });
-
-// router.post('/login', validateLogin, async (req, res, next) => {
-//     const user = req.user;
-//     const { username, password }  = req.body;
-
-//     try {
-//     const user = await Users.findBy({ username })
-//     if(!user) return res.status(400).json({ message: "User was not found" });
-//     const validPassword = await bcrypt.compare(password, user.password);
-//     if(!validPassword) return res.status(400).json({ message: "Password is invalid" });
-
-//     user.password = undefined;
-    
-//     res.send(user);
-//     } catch (err) {
-//         next(err)
-//     }
-// });
-
 
 
 

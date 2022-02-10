@@ -17,13 +17,6 @@ async function validateLogin(req, res, next) {
            message: 'Requires a valid username and password',
        })
    }
-//    if(!username || !password) {
-//        res.status(400).json({ message: "Incorrect username or password" })
-//    } else {
-//        req.username = username.trim();
-//        req.password = password.trim();
-//        next()
-//    }
 }
 
 module.exports = { validateLogin };
