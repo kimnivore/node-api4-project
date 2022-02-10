@@ -29,7 +29,8 @@ async register({ username, password }) {
 },
 
 async login({ username, password }) {
-  if(!username || !password){
+  const user = { username, password }
+  if(!user.username || !user.password){
     return 'Please input correct username & password'
   } else {
     return 'Welcome user!';
