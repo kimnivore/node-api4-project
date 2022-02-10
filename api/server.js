@@ -10,8 +10,8 @@ server.get('/', (req, res) => {
     res.send(`<h1> Users API </h1>`)
 });
 
-server.use('*', (req, res) => {
-    res.send(`<h1> Hello from Heroku </h1>`);
-});
+// server.use('*', (req, res) => {
+//     res.send(`<h1> Hello from Heroku </h1>`);
+// });
 
 module.exports = server;
