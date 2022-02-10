@@ -1,5 +1,7 @@
 const express = require('express');
 const Users = require('./users-model');
+const { validateLogin } = require('./users-middleware');
+
 const router = express.Router();
 
 
@@ -32,6 +34,35 @@ router.post('/register', (req, res, next) => {
         })
     }
 });
+
+router.post('/login', validateLogin, (req, res, next) => {
+    Users.login(req.body)
+        .then(user => {
+            res.status(201).json({
+                message: `Welcome ${user}!`, 
+            })
+        })
+        .catch(next)
+});
+
+// router.post('/login', async (req, res, next) => {
+//    try {
+//     const id = req.params.id;
+//     const { username, password }  = req.body;
+//     let user = await Users.getById(id);
+//     if(!user) return res.status(400).json({ message: "User was not found" });
+//     const validPassword = await bcrypt.compare(password, user.password);
+//     if(!validPassword) return res.status(400).json({ message: "Password is invalid" });
+
+//     user.password = undefined;
+    
+//     res.send(user);
+//     } catch (err) {
+//         next(err)
+//     }
+// });
+
+
 
 
 

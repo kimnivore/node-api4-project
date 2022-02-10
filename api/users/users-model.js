@@ -5,10 +5,10 @@ function getId() {
 }
 
 const users = [
-  { id: getId(), username: 'kimnivore1', password: Date.now()},
-  { id: getId(), username: 'curtis1', password: Date.now()},
-  { id: getId(), username: 'keane1', password: Date.now()},
-  { id: getId(), username: 'tristin1', password: Date.now()},
+  { id: getId(), username: 'kimnivore1', password: 'kimnivore' },
+  { id: getId(), username: 'curtis1', password: 'curtis' },
+  { id: getId(), username: 'keane1', password: 'keane' },
+  { id: getId(), username: 'tristin1', password: 'tristin' },
 ];
 
 module.exports = {
@@ -17,18 +17,23 @@ async get() {
   return users;
 },
 
-async register({ username, password }) {
-  const newUser = { id: getId(), username, password }
-  users.push(newUser)
-  return newUser
+async getById(id){
+  const user = users.find(u => u.id === id)
+  return user
 },
 
-// function login({ username, password }) {
-//   if(!username || !password){
-//     return 'Please input correct username & password'
-//   } else {
-//     return username;
-//   }
-// }
+async register({ username, password }) {
+  const user = { id: getId(), username, password }
+  users.push(user)
+  return user
+},
+
+async login({ username, password }) {
+  if(!username || !password){
+    return 'Please input correct username & password'
+  } else {
+    return 'Welcome user!';
+  }
+}
 }
 
