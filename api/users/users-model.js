@@ -1,50 +1,34 @@
-const db = require('../../data/db-config');
+const { nanoid } = require('nanoid')
+
+function getId() {
+  return nanoid().slice(0, 5)
+}
+
+const users = [
+  { id: getId(), username: 'kimnivore1', password: Date.now()},
+  { id: getId(), username: 'curtis1', password: Date.now()},
+  { id: getId(), username: 'keane1', password: Date.now()},
+  { id: getId(), username: 'tristin1', password: Date.now()},
+];
 
 module.exports = {
-  get,
-  getById,
-  getUserPosts,
-  insert,
-  update,
-  remove,
-};
 
-function get() {
-  return db('users');
+async get() {
+  return users;
+},
+
+async register({ username, password }) {
+  const newUser = { id: getId(), username, password }
+  users.push(newUser)
+  return newUser
+},
+
+// function login({ username, password }) {
+//   if(!username || !password){
+//     return 'Please input correct username & password'
+//   } else {
+//     return username;
+//   }
+// }
 }
 
-function getById(id) {
-  return db('users')
-    .where({ id })
-    .first();
-}
-
-function getUserPosts(userId) {
-  return db('posts as p')
-    .join('users as u', 'u.id', 'p.user_id')
-    .select('p.id', 'p.text', 'u.name as postedBy')
-    .where('p.user_id', userId);
-}
-
-function insert(user) {
-  return db('users')
-    .insert(user)
-    .then(ids => {
-      return getById(ids[0]);
-    });
-}
-
-function update(id, changes) {
-  return db('users')
-    .where({ id })
-    .update(changes)
-    .then(rows => {
-      return getById(id);
-    });
-}
-
-function remove(id) {
-  return db('users')
-    .where('id', id)
-    .del();
-}
